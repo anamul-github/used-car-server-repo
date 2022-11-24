@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-// const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 const app = express();
@@ -11,15 +10,28 @@ app.use(cors());
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.2lc9zml.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri);
+
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-});
 
 
+async function run() {
+    try {
+        const categoryCollection = client.db('usedProductsResale').collection('categoryNames');
+        // console.log(categoryCollection);
+        // const reviewCollection = client.db('fitnessTraining').collection('reviews');
+
+        app.get('/categoryNames', async (req, res) => {
+            const query = {}
+            const cursor = categoryCollection.find(query);
+            const categoryNames = await cursor.toArray();
+            res.send(categoryNames);
+        })
+    }
+    finally {
+
+    }
+}
+run().catch(err => console.error(err))
 
 
 app.get('/', (req, res) => {
