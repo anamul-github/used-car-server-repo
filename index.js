@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -16,35 +16,29 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run() {
     try {
-        const categoryCollection = client.db('usedProductsResale').collection('categoryNames');
+        const categoryCollection = client.db('usedProductsResale').collection('categories');
         const carCollection = client.db('usedProductsResale').collection('usedCars');
-        console.log(carCollection);
 
         //category items
-        app.get('/categoryNames', async (req, res) => {
+        app.get('/categories', async (req, res) => {
             const query = {}
             const cursor = categoryCollection.find(query);
-            const categoryNames = await cursor.toArray();
-            res.send(categoryNames);
+            const categories = await cursor.toArray();
+            res.send(categories);
         })
 
-        //experiment
-        app.get('/usedCars', async (req, res) => {
-            const query = {}
-            const cursor = carCollection.find(query);
-            const usedCars = await cursor.toArray();
-            res.send(usedCars);
+        app.get('/category/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { category_id: id }
+            if (id === query.category_id) {
+                const selectedCar = await carCollection.find(query).toArray();
+                console.log(selectedCar);
+                res.send(selectedCar);
+            }
+
         })
 
-        //trying
-        app.get('/usedCars/:id', async (req, res) => {
-            const id = req.params.cat_id;
-            console.log(id);
-            const query = { _id: ObjectId(id) };
-            const car = await carCollection.findOne(query);
 
-            res.send(car);
-        })
 
         //([0-9a-fA-F]{24})
 

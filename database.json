@@ -1,6 +1,6 @@
 [
     {
-        "cat_ID": "1",
+        "category_id": "1",
         "picture": "https://i.ibb.co/6tNJFKv/regular1.jpg",
         "name": "2019 Hyundai Sonata",
         "location": "Oklahama City, OK",
@@ -10,7 +10,7 @@
         "posted_time": "November 12, 2022"
     },
     {
-        "cat_ID": "2",
+        "category_id": "1",
         "picture": "https://i.ibb.co/vkqrd5h/regular2.jpg",
         "name": "2020 Toyota Camry",
         "location": "Boerne, Texas",
@@ -20,7 +20,7 @@
         "posted_time": "November 18, 2022"
     },
     {
-        "cat_ID": "3",
+        "category_id": "2",
         "picture": "https://i.ibb.co/5TqymMG/luxury1.jpg",
         "name": "2016 BMW 7 Series",
         "location": "Mobile, Alabama",
@@ -30,7 +30,7 @@
         "posted_time": "November 2, 2022"
     },
     {
-        "cat_ID": "4",
+        "category_id": "2",
         "picture": "https://i.ibb.co/W5tyy42/luxury2.jpg",
         "name": "2014 Mercedes-Benz E-Class E 350 Sport",
         "location": "Belmont, California",
@@ -40,7 +40,7 @@
         "posted_time": "November 9, 2022"
     },
     {
-        "cat_ID": "5",
+        "category_id": "3",
         "picture": "https://i.ibb.co/cJ50mB1/electric1.jpg",
         "name": "2018 Tesla Model S 75D",
         "location": "Fort Washington, Pennsylvania",
@@ -50,7 +50,7 @@
         "posted_time": "November 22, 2022"
     },
     {
-        "cat_ID": "6",
+        "category_id": "3",
         "picture": "https://i.ibb.co/xL1nf34/electric2.jpg",
         "name": "2021 Tesla Model 3 Standard Range",
         "location": "Auburn, Washington",
