@@ -55,6 +55,7 @@ async function run() {
             }
         });
 
+        //Verify JWT
         app.get('/bookings', verifyJWT, async (req, res) => {
             const email = req.query.email;
             const decodedEmail = req.decoded.email;
@@ -76,6 +77,7 @@ async function run() {
             res.send(result);
         });
 
+        //JWT
         app.get('/jwt', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
@@ -99,14 +101,13 @@ async function run() {
             res.send(result);
         });
 
-        app.get('/users/admin/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
+        //Admin
+        app.get('/users/admin/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
             const user = await usersCollection.findOne(query);
             res.send({ isAdmin: user?.role === 'admin' });
-        })
-
-
+        });
 
         //([0-9a-fA-F]{24})
 
