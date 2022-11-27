@@ -11,8 +11,15 @@ app.use(cors());
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.2lc9zml.mongodb.net/?retryWrites=true&w=majority`;
-
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+function verifyJWT(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.send(401).send('unauthorized access');
+    }
+    const token = authHeader.split(' ')[1];
+}
 
 
 async function run() {
@@ -40,7 +47,7 @@ async function run() {
             }
         });
 
-        app.get('/bookings', async (req, res) => {
+        app.get('/bookings', verifyJWT, async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
             const bookings = await bookingsCollection.find(query).toArray();
