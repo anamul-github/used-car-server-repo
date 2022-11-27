@@ -18,6 +18,7 @@ async function run() {
     try {
         const categoryCollection = client.db('usedProductsResale').collection('categories');
         const carCollection = client.db('usedProductsResale').collection('usedCars');
+        const bookingsCollection = client.db('usedProductsResale').collection('bookings');
 
         //category items
         app.get('/categories', async (req, res) => {
@@ -35,7 +36,13 @@ async function run() {
                 console.log(selectedCar);
                 res.send(selectedCar);
             }
+        })
 
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body;
+            console.log(booking);
+            const result = await bookingsCollection.insertOne(booking);
+            res.send(result);
         })
 
 
