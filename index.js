@@ -110,10 +110,17 @@ async function run() {
             res.send({ isAdmin: user?.role === 'admin' });
         });
 
+        //get all sellers
+        // app.get('/users/seller/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const query = { email };
+        //     const user = await usersCollection.findOne(query);
+        //     res.send({ isSeller: user?.role === 'seller' });
+        // })
+
         // add product api
         app.post("/products", async (req, res) => {
             const product = req.body;
-            // console.log(product);
             const result = await productsCollection.insertOne(product);
             res.send(result);
         });
@@ -122,6 +129,14 @@ async function run() {
         app.get("/products", async (req, res) => {
             const query = {};
             const result = await productsCollection.find(query).toArray();
+            res.send(result);
+        });
+
+        //delete product
+        app.delete("/products/:id", async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await productsCollection.deleteOne(filter);
             res.send(result);
         });
 
