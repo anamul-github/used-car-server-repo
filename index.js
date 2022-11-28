@@ -90,11 +90,26 @@ async function run() {
             res.status(403).send({ accessToken: '' })
         });
 
+        //all users
         app.get('/users', async (req, res) => {
             const query = {};
             const users = await usersCollection.find(query).toArray();
             res.send(users);
-        })
+        });
+
+        //all buyers
+        app.get('/allbuyers', async (req, res) => {
+            const query = { role: 'buyer' };
+            const buyers = await usersCollection.find(query).toArray();
+            res.send(buyers);
+        });
+
+        //all sellers
+        app.get('/allsellers', async (req, res) => {
+            const query = { role: 'seller' };
+            const sellers = await usersCollection.find(query).toArray();
+            res.send(sellers);
+        });
 
         app.post('/users', async (req, res) => {
             const user = req.body;
@@ -110,13 +125,13 @@ async function run() {
             res.send({ isAdmin: user?.role === 'admin' });
         });
 
-        //get all sellers
-        // app.get('/users/seller/:email', async (req, res) => {
-        //     const email = req.params.email;
-        //     const query = { email };
-        //     const user = await usersCollection.findOne(query);
-        //     res.send({ isSeller: user?.role === 'seller' });
-        // })
+        // get all sellers
+        app.get('/users/seller/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await usersCollection.findOne(query);
+            res.send({ isSeller: user?.role === 'seller' });
+        })
 
         // add product api
         app.post("/products", async (req, res) => {
